@@ -4,7 +4,6 @@ function SharedLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-  classNames?: string;
 }>) {
   return (
     <>
