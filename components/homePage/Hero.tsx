@@ -4,7 +4,7 @@ import { Globe } from "./Globe";
 
 function Hero() {
   return (
-    <section className="flex h-[90vh] w-full flex-row justify-between max-md:mt-20 max-md:flex-col md:px-10">
+    <section className="flex h-[90vh] w-full flex-row justify-between max-md:mt-5 max-md:flex-col md:px-10">
       <div className="mt-32 w-[90%] space-y-5 max-md:w-full">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight max-md:text-center lg:text-6xl">
           Unlock <br /> Powerful Brand Partnerships

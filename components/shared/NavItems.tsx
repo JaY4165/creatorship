@@ -1,8 +1,6 @@
 import React from "react";
 import {
   NavigationMenuItem,
-  NavigationMenuLink,
-  navigationMenuTriggerStyle,
 } from "../ui/navigation-menu";
 import Link from "next/link";
 import { NavElementType } from "./Navbar";

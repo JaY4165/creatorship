@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { usePathname } from "next/navigation";
 
 function SharedLayout({
   children,
@@ -9,11 +12,20 @@ function SharedLayout({
   children: React.ReactNode;
   classNames?: string;
 }>) {
+  const routesMatcher = ["/sign-up", "/login"];
+  const path = usePathname();
+  const isAuthPage = routesMatcher.includes(path);
   return (
     <>
-      <Navbar />
-      <div className={classNames}>{children}</div>
-      <Footer />
+      {isAuthPage ? (
+        <div className={classNames}>{children}</div>
+      ) : (
+        <>
+          <Navbar />
+          <div className={classNames}>{children}</div>
+          <Footer />
+        </>
+      )}
     </>
   );
 }

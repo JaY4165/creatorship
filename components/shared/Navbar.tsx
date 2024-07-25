@@ -16,6 +16,7 @@ import {
 import React from "react";
 import { ModeToggle } from "./toggle-mode";
 import NavItems from "./NavItems";
+import Link from "next/link";
 
 export type NavElementType = { title: string; href: string };
 function Navbar() {
@@ -39,9 +40,11 @@ function Navbar() {
   ];
   return (
     <header className="w-full">
-      <nav className="fixed top-0 z-50 flex h-20 w-full items-center justify-between border-b-2 border-gray-200 bg-opacity-60 px-14 backdrop-blur-lg backdrop-filter dark:border-opacity-10 max-md:px-3">
+      <nav className="fixed top-0 z-50 flex h-20 w-full items-center justify-between border-b-2 border-gray-100 bg-opacity-40 px-14 backdrop-blur-lg backdrop-filter dark:border-opacity-10 max-md:px-3">
         <div className="text-xl font-semibold">
-          <h1 className="uppercase">CreatorShip</h1>
+          <h1 className="uppercase">
+            <Link href={"/"}>CreatorShip</Link>
+          </h1>
         </div>
         <div className="md:hidden">
           <Sheet>
