@@ -39,7 +39,7 @@ function Navbar() {
   ];
   return (
     <header className="w-full">
-      <nav className="flex h-20 w-full items-center justify-between px-5 max-md:px-3">
+      <nav className="fixed top-0 z-50 flex h-20 w-full items-center justify-between border-b-2 border-gray-200 bg-opacity-60 px-14 backdrop-blur-lg backdrop-filter dark:border-opacity-10 max-md:px-3">
         <div className="text-xl font-semibold">
           <h1 className="uppercase">CreatorShip</h1>
         </div>
@@ -74,7 +74,7 @@ function Navbar() {
         </div>
         <div className="flex items-center justify-center space-x-4 max-md:hidden">
           <NavigationMenu>
-            <NavigationMenuList>
+            <NavigationMenuList className="space-x-5">
               {navElements.map((element) => (
                 <NavItems key={element.title} element={element} />
               ))}

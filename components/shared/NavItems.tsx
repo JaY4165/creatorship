@@ -6,6 +6,8 @@ import {
 } from "../ui/navigation-menu";
 import Link from "next/link";
 import { NavElementType } from "./Navbar";
+import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
 
 function NavItems({
   element,
@@ -15,11 +17,9 @@ function NavItems({
   classNames?: string;
 }) {
   return (
-    <NavigationMenuItem className={classNames}>
+    <NavigationMenuItem className={cn(classNames)}>
       <Link href={element.href} legacyBehavior passHref>
-        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-          {element.title}
-        </NavigationMenuLink>
+        <Button variant={"link"}>{element.title}</Button>
       </Link>
     </NavigationMenuItem>
   );
