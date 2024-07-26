@@ -23,11 +23,11 @@ function Navbar() {
   const navElements: NavElementType[] = [
     {
       title: "For Businesses",
-      href: "/businesses",
+      href: "/login",
     },
     {
       title: "For Creators",
-      href: "/creators",
+      href: "/login",
     },
     {
       title: "Success Stories",
@@ -68,7 +68,7 @@ function Navbar() {
                 </div>
               </SheetHeader>
               <SheetFooter className="">
-                <div className="">
+                <div className="m-5">
                   <ModeToggle />
                 </div>
               </SheetFooter>
