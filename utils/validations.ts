@@ -19,6 +19,12 @@ export const LoginFormSchema = z.object({
 });
 
 
+export const UserTypeSchema = z.object({
+    userType: z.enum(["creator", "business"], {
+        required_error: "You need to select user type.",
+    }),
+});
+
 export const BusinessFormDataSchema = z.object({
     companyName: z.string().min(1, 'Company name is required').max(50, "Maximum company name is upto 50 characters"),
     industry: z.string().min(1, 'Industry is required').max(50, "Maximum industry field is upto 50 characters"),
@@ -35,5 +41,7 @@ export const BusinessFormDataSchema = z.object({
 export type SignUpFormType = z.infer<typeof SignUpFormSchema>
 
 export type LoginFormType = z.infer<typeof LoginFormSchema>
+
+export type UserTypeType = z.infer<typeof UserTypeSchema>
 
 
