@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  schemas  = ["public"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum UserType {
+  BUSINESS
+  CREATOR
+}
+
+enum OpportunityStatus {
+  OPEN
+  CLOSED
+  MATCHED
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model User {
+  id              String           @id @default(cuid())
+  email           String           @unique
+  userType        UserType
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  businessProfile BusinessProfile?
+  creatorProfile  CreatorProfile?
+}
+
+model BusinessProfile {
+  id                     String                   @id @default(cuid())
+  userId                 String                   @unique
+  user                   User                     @relation(fields: [userId], references: [id])
+  companyName            String
+  industry               String
+  description            String
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @updatedAt
+  PartnershipOpportunity PartnershipOpportunity[]
+}
+
+model CreatorProfile {
+  id           String        @id @default(cuid())
+  userId       String        @unique
+  user         User          @relation(fields: [userId], references: [id])
+  fullName     String
+  contentNiche String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  Application  Application[]
+}
+
+model PartnershipOpportunity {
+  id           String            @id @default(cuid())
+  businessId   String
+  business     BusinessProfile   @relation(fields: [businessId], references: [id])
+  title        String
+  description  String
+  status       OpportunityStatus
+  applications Application[]
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+}
+
+model Application {
+  id            String                 @id @default(cuid())
+  opportunityId String
+  opportunity   PartnershipOpportunity @relation(fields: [opportunityId], references: [id])
+  creatorId     String
+  creator       CreatorProfile         @relation(fields: [creatorId], references: [id])
+  status        ApplicationStatus
+  submittedAt   DateTime               @default(now())
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @updatedAt
+}
