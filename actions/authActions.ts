@@ -14,10 +14,12 @@ export async function logIn(formData: LoginFormType) {
     }
     const supabase = createClient();
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error, data } = await supabase.auth.signInWithPassword({
         email: result.data.email,
         password: result.data.password
     })
+
+    console.log(data)
 
     if (error) {
         redirect('/error')
