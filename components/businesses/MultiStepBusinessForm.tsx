@@ -325,7 +325,7 @@ function MultiStepBusinessForm() {
                           State / Province
                         </FormLabel>
                         <div className="mt-2">
-                          <Select>
+                          <Select onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger className="bg-gray-200 dark:bg-neutral-900">
                                 <SelectValue
