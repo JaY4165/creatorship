@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { LoginFormSchema, LoginFormType } from "@/utils/validations";
 import { logIn } from "@/actions/authActions";
+import { unknown } from "zod";
 function LogInForm() {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
@@ -28,12 +29,13 @@ function LogInForm() {
 
   async function onSubmit(data: LoginFormType) {
     startTransition(async () => {
-      const res = await logIn(data);
-    });
-
-    toast({
-      title: "Login Successful",
-      description: "You have logged in to your account",
+      const res: string | undefined = await logIn(data);
+      if (res) {
+        toast({
+          title: "Error",
+          description: JSON.stringify(res),
+        });
+      }
     });
   }
   return (
@@ -78,7 +80,12 @@ function LogInForm() {
               </FormItem>
             )}
           />
-          <Button className="w-full" type="submit" variant={"secondary"}>
+          <Button
+            className="w-full"
+            disabled={isPending}
+            type="submit"
+            variant={"secondary"}
+          >
             Login
           </Button>
         </form>

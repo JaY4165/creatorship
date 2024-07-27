@@ -31,12 +31,14 @@ function SignUpForm() {
 
   async function onSubmit(data: SignUpFormType) {
     startTransition(async () => {
-      const res = await signUp(data);
-    });
+      const res: string | undefined = await signUp(data);
 
-    toast({
-      title: "Account Created",
-      description: "Your account has been created successfully",
+      if (res) {
+        toast({
+          title: "Error",
+          description: JSON.parse(res),
+        });
+      }
     });
   }
   return (
