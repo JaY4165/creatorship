@@ -42,10 +42,14 @@ export async function updateSession(request: NextRequest) {
         return NextResponse.redirect(url)
     }
 
-    if(user)
-    {
-        
+    if (user) {
+        if (request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/sign-up') || request.nextUrl.pathname.startsWith('/')) {
+            const url = request.nextUrl.clone()
+            url.pathname = '/user-type'
+            return NextResponse.redirect(url)
+        }
     }
+
 
     return supabaseResponse
 }

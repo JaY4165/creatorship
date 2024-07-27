@@ -8,7 +8,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
@@ -28,8 +27,7 @@ function UserTypeForm() {
 
   function onSubmit(data: UserTypeType) {
     toast({
-      title: "You submitted the following values:",
-      description: "submitted",
+      title: `User type stored as ${data.userType}`,
     });
   }
   return (
