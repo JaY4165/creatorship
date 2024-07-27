@@ -35,7 +35,7 @@ enum ApplicationStatus {
 model User {
   id              String           @id @default(cuid())
   email           String           @unique
-  userType        UserType
+  Role        UserType
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   businessProfile BusinessProfile?
