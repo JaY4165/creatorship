@@ -38,7 +38,6 @@ function UserTypeForm() {
           name="userType"
           render={({ field }) => (
             <FormItem className="space-y-5">
-              {/* <FormLabel>Choose the user type</FormLabel> */}
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger className="bg-gray-200 dark:bg-neutral-900">
