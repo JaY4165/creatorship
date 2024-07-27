@@ -83,7 +83,7 @@ function LogInForm() {
             className="w-full"
             disabled={isPending}
             type="submit"
-            variant={"secondary"}
+            variant={"default"}
           >
             Login
           </Button>

@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
-import { UserTypeSchema, UserTypeType } from "@/utils/validations";
+import { Roles, UserTypeSchema, UserTypeType } from "@/utils/validations";
 import {
   Select,
   SelectContent,
@@ -19,16 +19,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { userTypeAction } from "@/actions/userActions";
 
 function UserTypeForm() {
   const form = useForm<UserTypeType>({
     resolver: zodResolver(UserTypeSchema),
   });
 
-  function onSubmit(data: UserTypeType) {
-    toast({
-      title: `User type stored as ${data.userType}`,
-    });
+  async function onSubmit(data: UserTypeType) {
+    try {
+      const role = data.userType === "creator" ? Roles.CREATOR : Roles.BUSINESS;
+
+      const res = await userTypeAction(role);
+
+      toast({
+        title: "Success",
+        description: "User type updated successfully",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error,
+      });
+    }
   }
   return (
     <Form {...form}>

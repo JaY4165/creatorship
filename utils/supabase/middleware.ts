@@ -1,5 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
-import { NextResponse, type NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import prisma from '../db'
+import { Roles } from '../validations'
 
 export async function updateSession(request: NextRequest) {
     let supabaseResponse = NextResponse.next({
@@ -43,10 +45,26 @@ export async function updateSession(request: NextRequest) {
     }
 
     if (user) {
-        if (request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/sign-up') || request.nextUrl.pathname.startsWith('/')) {
+        if (request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/sign-up')) {
             const url = request.nextUrl.clone()
             url.pathname = '/user-type'
             return NextResponse.redirect(url)
+        }
+    }
+
+    if (request.nextUrl.pathname.startsWith('/user-type')) {
+        if (user) {
+            const resUser = await prisma.user.findUnique({
+                where: {
+                    id: user?.id,
+                },
+            })
+
+            if (resUser?.role !== Roles.BUSINESS || Roles.CREATOR) {
+                const url = request.nextUrl.clone()
+                url.pathname = '/'
+                return NextResponse.redirect('/')
+            }
         }
     }
 

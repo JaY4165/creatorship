@@ -101,7 +101,7 @@ function SignUpForm() {
               </FormItem>
             )}
           />
-          <Button className="w-full" type="submit" variant={"secondary"}>
+          <Button className="w-full" type="submit" variant={"default"}>
             SignUp
           </Button>
         </form>
