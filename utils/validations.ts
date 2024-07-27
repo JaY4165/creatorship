@@ -36,6 +36,11 @@ export const BusinessFormDataSchema = z.object({
     zip: z.string().min(1, 'Zip is required').max(15, "Maximum state field is upto 15 characters")
 })
 
+export enum Roles {
+    CREATOR = 'CREATOR',
+    BUSINESS = 'BUSINESS',
+}
+
 
 
 export type SignUpFormType = z.infer<typeof SignUpFormSchema>

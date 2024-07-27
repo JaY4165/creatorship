@@ -36,7 +36,7 @@ function SignUpForm() {
       if (res) {
         toast({
           title: "Error",
-          description: JSON.parse(res),
+          description: typeof res === "string" ? res : JSON.parse(res),
         });
       }
     });

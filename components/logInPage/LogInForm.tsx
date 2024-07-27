@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/form";
 import { LoginFormSchema, LoginFormType } from "@/utils/validations";
 import { logIn } from "@/actions/authActions";
-import { unknown } from "zod";
 function LogInForm() {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
@@ -33,7 +32,7 @@ function LogInForm() {
       if (res) {
         toast({
           title: "Error",
-          description: JSON.stringify(res),
+          description: typeof res === "string" ? res : JSON.parse(res),
         });
       }
     });
