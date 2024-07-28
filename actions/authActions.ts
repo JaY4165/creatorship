@@ -3,8 +3,9 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
-import { LoginFormSchema, LoginFormType, Roles, SignUpFormSchema, SignUpFormType } from '@/utils/validations';
+import { LoginFormSchema, LoginFormType, SignUpFormSchema, SignUpFormType } from '@/utils/validations';
 import prisma from '@/utils/db';
+import { UserType } from '@prisma/client';
 export async function logIn(formData: LoginFormType) {
     const result = await LoginFormSchema.safeParseAsync(formData)
 
@@ -42,7 +43,7 @@ export async function logIn(formData: LoginFormType) {
         return 'User not found'
     }
 
-    if (res.role !== Roles.BUSINESS || Roles.CREATOR) {
+    if (res.role !== UserType.BUSINESS || UserType.CREATOR) {
         redirect('/user-type')
     }
 
