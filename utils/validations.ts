@@ -48,7 +48,9 @@ export const CreatorFormDataSchema = z.object({
 })
 
 
+export type BusinessFormDataType = z.infer<typeof BusinessFormDataSchema>
 
+export type CreatorFormDataType = z.infer<typeof CreatorFormDataSchema>
 
 export type SignUpFormType = z.infer<typeof SignUpFormSchema>
 

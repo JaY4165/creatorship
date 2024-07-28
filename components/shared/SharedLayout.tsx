@@ -12,7 +12,13 @@ function SharedLayout({
   children: React.ReactNode;
   classNames?: string;
 }>) {
-  const routesMatcher = ["/sign-up", "/login", "/user-type"];
+  const routesMatcher = [
+    "/sign-up",
+    "/login",
+    "/user-type",
+    "/creator-form",
+    "business-form",
+  ];
   const path = usePathname();
   const isAuthPage = routesMatcher.includes(path);
   return (

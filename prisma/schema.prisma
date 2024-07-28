@@ -10,31 +10,29 @@ datasource db {
 }
 
 model User {
-  id              String           @id @default(cuid())
-  email           String           @unique
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  role            UserType?
-  userId          String           @unique
-  businessProfile BusinessProfile?
-  creatorProfile  CreatorProfile?
+  id             String          @id @default(cuid())
+  email          String          @unique
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  userId         String          @unique
+  role           UserType?
+  creatorProfile CreatorProfile?
 }
 
 model BusinessProfile {
-  id                     String                   @id @default(cuid())
-  userId                 String                   @unique
-  companyName            String
-  industry               String
-  description            String
-  country                String
-  state                  String
-  city                   String
-  address                String
-  postalCode             String
-  createdAt              DateTime                 @default(now())
-  updatedAt              DateTime                 @updatedAt
-  user                   User                     @relation(fields: [userId], references: [id])
-  PartnershipOpportunity PartnershipOpportunity[]
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  companyName String
+  industry    String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  address     String
+  city        String
+  country     String
+  postalCode  String
+  state       String
+  
 }
 
 model CreatorProfile {
@@ -42,14 +40,14 @@ model CreatorProfile {
   userId       String        @unique
   fullName     String
   contentNiche String
-  description  String
-  country      String
-  state        String
-  city         String
-  address      String
-  postalCode   String
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
+  address      String
+  city         String
+  country      String
+  postalCode   String
+  state        String
+  description  String
   Application  Application[]
   user         User          @relation(fields: [userId], references: [id])
 }
@@ -63,7 +61,6 @@ model PartnershipOpportunity {
   createdAt    DateTime          @default(now())
   updatedAt    DateTime          @updatedAt
   applications Application[]
-  business     BusinessProfile   @relation(fields: [businessId], references: [id])
 }
 
 model Application {

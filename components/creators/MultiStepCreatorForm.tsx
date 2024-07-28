@@ -5,10 +5,7 @@ import { motion } from "framer-motion";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  BusinessFormDataSchema,
-  CreatorFormDataSchema,
-} from "@/utils/validations";
+import { CreatorFormDataSchema } from "@/utils/validations";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
@@ -20,6 +17,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { creatorFormAction } from "@/actions/creatorActions";
 
 type Inputs = z.infer<typeof CreatorFormDataSchema>;
 
@@ -43,7 +41,7 @@ function MultiStepCreatorForm() {
   const delta = currentStep - previousStep;
 
   const form = useForm<Inputs>({
-    resolver: zodResolver(BusinessFormDataSchema),
+    resolver: zodResolver(CreatorFormDataSchema),
   });
 
   const {
@@ -52,8 +50,8 @@ function MultiStepCreatorForm() {
     formState: { errors },
   } = form;
 
-  const processForm: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+  const processForm: SubmitHandler<Inputs> = async (data) => {
+    await creatorFormAction(data);
     form.reset();
   };
 
@@ -128,7 +126,7 @@ function MultiStepCreatorForm() {
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
-                Creator Information
+                User Information
               </h2>
               <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-white">
                 Provide your details.
@@ -144,7 +142,7 @@ function MultiStepCreatorForm() {
                           htmlFor="fullName"
                           className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                         >
-                          Creator name
+                          Full name
                         </FormLabel>
                         <div className="mt-2">
                           <Input
@@ -204,7 +202,7 @@ function MultiStepCreatorForm() {
                           htmlFor="description"
                           className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                         >
-                          Creator description
+                          Description
                         </FormLabel>
                         <div className="mt-2">
                           <FormControl>

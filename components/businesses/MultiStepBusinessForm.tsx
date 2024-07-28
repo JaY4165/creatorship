@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { businessFormAction } from "@/actions/businessActions";
 
 type Inputs = z.infer<typeof BusinessFormDataSchema>;
 
@@ -49,8 +50,8 @@ function MultiStepBusinessForm() {
     formState: { errors },
   } = form;
 
-  const processForm: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+  const processForm: SubmitHandler<Inputs> = async (data) => {
+    await businessFormAction(data);
     form.reset();
   };
 
