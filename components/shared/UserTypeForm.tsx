@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
-import { Roles, UserTypeSchema, UserTypeType } from "@/utils/validations";
+import { UserTypeSchema, UserTypeType } from "@/utils/validations";
 import {
   Select,
   SelectContent,

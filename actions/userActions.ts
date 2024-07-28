@@ -2,7 +2,6 @@
 
 import { createClient } from "@/utils/supabase/server";
 import prisma from '@/utils/db';
-import { Roles } from "@/utils/validations";
 import { redirect } from "next/navigation";
 import { UserType } from "@prisma/client";
 
@@ -39,8 +38,21 @@ export async function userTypeAction(userRole: UserType) {
         },
         data: {
             role: userRole
+        },
+        select: {
+            role: true
         }
     })
+
+    if (res1 && res1.role !== null) {
+        const role = res1.role
+        if (role === UserType.BUSINESS) {
+            redirect('/business-form')
+        } else if (role === UserType.CREATOR) {
+            redirect('/creator-form')
+        }
+
+    }
 
     redirect('/')
 }

@@ -2,14 +2,12 @@ import React from "react";
 import AuthCard from "./AuthCard";
 import UserTypeForm from "./UserTypeForm";
 
-type Props = {};
-
-function UserTypeCard({}: Props) {
+function UserTypeCard() {
   return (
-    <div className="w-full justify-center flex">
+    <div className="flex w-full justify-center">
       <AuthCard>
-      <UserTypeForm />
-    </AuthCard>
+        <UserTypeForm />
+      </AuthCard>
     </div>
   );
 }

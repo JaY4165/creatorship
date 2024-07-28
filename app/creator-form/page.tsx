@@ -1,10 +1,11 @@
-import UserTypeForm from "@/components/shared/UserTypeCard";
+import MultiStepCreatorForm from "@/components/creators/MultiStepCreatorForm";
+import { createClient } from "@/utils/supabase/server";
 import React from "react";
 import prisma from "@/utils/db";
-import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { UserType } from "@prisma/client";
 
-async function UserTypePage() {
+async function CreatorForm() {
   const supabase = createClient();
   const {
     data: { user },
@@ -21,14 +22,14 @@ async function UserTypePage() {
     },
   });
 
-  if (userRoleType?.role !== null) {
+  if (userRoleType?.role !== UserType.CREATOR) {
     redirect("/");
   }
   return (
-    <div className="flex h-[90vh] w-full items-center justify-center">
-      <UserTypeForm />
+    <div className="my-20 mb-20 h-screen w-full overflow-x-hidden px-36 pb-20 max-md:px-2">
+      <MultiStepCreatorForm />
     </div>
   );
 }
 
-export default UserTypePage;
+export default CreatorForm;
