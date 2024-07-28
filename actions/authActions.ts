@@ -33,9 +33,6 @@ export async function logIn(formData: LoginFormType) {
         where: {
             id: signInData.user.id
         },
-        select: {
-            role: true
-        }
     })
 
 
