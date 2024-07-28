@@ -1,6 +1,5 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextRequest, NextResponse } from 'next/server'
-import prisma from '../db'
 import { Roles } from '../validations'
 
 export async function updateSession(request: NextRequest) {
@@ -54,16 +53,26 @@ export async function updateSession(request: NextRequest) {
 
     if (request.nextUrl.pathname.startsWith('/user-type')) {
         if (user) {
-            const resUser = await prisma.user.findUnique({
-                where: {
-                    id: user?.id,
-                },
-            })
+            console.log(user.id)
+            const { data, error } = await supabase
+                .from('User')
+                .select('role')
+                .eq('userId', user.id)
 
-            if (resUser?.role !== Roles.BUSINESS || Roles.CREATOR) {
+
+
+            console.log(data)
+
+            if (error) {
+                console.log(error)
+                return supabaseResponse
+            }
+
+
+            if (data && data.length > 0 && data[0].role !== null) {
                 const url = request.nextUrl.clone()
                 url.pathname = '/'
-                return NextResponse.redirect('/')
+                return NextResponse.redirect(url)
             }
         }
     }

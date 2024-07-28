@@ -69,36 +69,77 @@ export async function signUp(formData: SignUpFormType) {
     }
 
     if (signUpData.user !== null) {
-        try {
-            const res1 = await prisma.user.findUnique({
-                where: {
-                    id: signUpData.user.id
-                },
-                select: {
-                    role: true
+        const res1 = await prisma.user.findUnique({
+            where: {
+                userId: signUpData.user.id
+            },
+            select: {
+                role: true
+            }
+        })
+
+        if (res1 === null) {
+            const res2 = await prisma.user.create({
+                data: {
+                    email: result.data.email,
+                    userId: signUpData.user.id
                 }
             })
-
-            if (res1 === null) {
-                const res2 = await prisma.user.create({
-                    data: {
-                        id: signUpData.user.id,
-                        email: result.data.email,
-                        userId: signUpData.user.id
-                    }
-                })
-                if (res2 === null) {
-                    return 'Error in creating user'
-                }
-                redirect('/user-type')
+            if (res2 === null) {
+                return 'Error in creating user'
             }
-        } catch (error) {
-            console.log(error);
-            return 'Error in creating user'
+            redirect('/user-type')
         }
-
     }
 
     revalidatePath('/', 'layout')
     redirect('/')
 }
+
+// export async function signUp(formData: SignUpFormType) {
+//     const result = await SignUpFormSchema.safeParseAsync(formData);
+
+//     if (!result.success) {
+//         console.error(result.error);
+//         return "Please enter valid credentials";
+//     }
+
+//     const supabase = createClient();
+//     const { error, data: signUpData } = await supabase.auth.signUp({
+//         email: result.data.email,
+//         password: result.data.password
+//     });
+
+//     if (error) {
+//         console.error(error.message);
+//         return error.message;
+//     }
+
+//     // const user = signUpData.user;
+
+//     // if (user) {
+//     //     const existingUser = await prisma.user.findUnique({
+//     //         where: { id: user.id },
+//     //         select: { role: true }
+//     //     });
+
+//     //     if (!existingUser) {
+//     //         try {
+//     //             await prisma.user.create({
+//     //                 data: {
+//     //                     id: user.id,
+//     //                     email: result.data.email,
+//     //                     userId: user.id
+//     //                 }
+//     //             });
+//     //             return redirect('/user-type');
+//     //         } catch (createError) {
+//     //             console.error(createError);
+//     //             return 'Error in creating user';
+//     //         }
+//     //     }
+//     // }
+
+//     revalidatePath('/', 'layout');
+//     return redirect('/');
+// }

@@ -3,8 +3,10 @@
 import { createClient } from "@/utils/supabase/server";
 import prisma from '@/utils/db';
 import { Roles } from "@/utils/validations";
+import { redirect } from "next/navigation";
+import { UserType } from "@prisma/client";
 
-export async function userTypeAction(userRole: Roles) {
+export async function userTypeAction(userRole: UserType) {
     const supabase = createClient();
     const {
         data: { user },
@@ -14,24 +16,55 @@ export async function userTypeAction(userRole: Roles) {
     }
     const res = await prisma.user.findUnique({
         where: {
-            id: user.id
+            userId: user.id
         },
         select: {
             role: true
         }
     })
 
-    if (!res) {
-        return
+    if (res === null) {
+        return 'User not found'
     }
 
-    const res1 = prisma.user.update({
+    if (res?.role !== null) {
+        return "User already has a role"
+    }
+
+    console.log(userRole, "User role is ")
+
+    const res1 = await prisma.user.update({
         where: {
-            id: user.id
+            userId: user.id
         },
         data: {
             role: userRole
         }
     })
 
+    redirect('/')
 }
+
+// export async function userTypeMiddleware() {
+
+//     const supabase = createClient();
+//     const {
+//         data: { user },
+//     } = await supabase.auth.getUser();
+//     if (!user) {
+//         return
+//     }
+
+//     if (user) {
+//         const getUser = await prisma.user.findUnique({
+//             where: {
+//                 id: user.id,
+//             },
+//         })
+//         if (getUser?.role !== Roles.BUSINESS || Roles.CREATOR) {
+//             redirect
+//         }
+//     }
+
+
+// }

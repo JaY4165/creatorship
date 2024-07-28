@@ -20,6 +20,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { userTypeAction } from "@/actions/userActions";
+import { UserType } from "@prisma/client";
 
 function UserTypeForm() {
   const form = useForm<UserTypeType>({
@@ -28,7 +29,8 @@ function UserTypeForm() {
 
   async function onSubmit(data: UserTypeType) {
     try {
-      const role = data.userType === "creator" ? Roles.CREATOR : Roles.BUSINESS;
+      const role =
+        data.userType === "creator" ? UserType.CREATOR : UserType.BUSINESS;
 
       const res = await userTypeAction(role);
 

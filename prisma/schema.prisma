@@ -70,7 +70,6 @@ model Application {
 enum UserType {
   BUSINESS
   CREATOR
-  NULL
 }
 
 enum OpportunityStatus {

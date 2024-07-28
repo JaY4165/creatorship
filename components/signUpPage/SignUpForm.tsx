@@ -101,7 +101,12 @@ function SignUpForm() {
               </FormItem>
             )}
           />
-          <Button className="w-full" type="submit" variant={"default"}>
+          <Button
+            disabled={isPending}
+            className="w-full"
+            type="submit"
+            variant={"default"}
+          >
             SignUp
           </Button>
         </form>
